@@ -7,7 +7,7 @@
 /** */
 import { existsSync, lstatSync } from 'fs';
 import { Dir, Json } from 'mylas';
-import { basename, dirname, isAbsolute, join, resolve } from 'path';
+import { basename, dirname, join, resolve } from 'path';
 import {
   IConfig,
   IOutput,
@@ -16,7 +16,7 @@ import {
   ITSConfig,
   ReplaceTscAliasPathsOptions
 } from '../interfaces';
-import { Output, PathCache, TrieNode } from '../utils';
+import { Output, PathCache, TrieNode,isAbsolute } from '../utils';
 import { importReplacers } from './replacers';
 import normalizePath = require('normalize-path');
 
