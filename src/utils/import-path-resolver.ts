@@ -27,7 +27,7 @@
 /** */
 import normalizePath = require('normalize-path');
 import { existsSync } from 'fs';
-import { dirname, join, resolve } from 'path';
+import { dirname, join, resolve, isAbsolutePath as checkAbsolutePath } from 'path';
 import { StringReplacer } from '../interfaces';
 
 const anyQuote = `["']`;
@@ -159,3 +159,6 @@ export const newImportStatementRegex =
 export const replaceSourceImportPaths =
   ImportPathResolver.replaceSourceImportPaths;
 export const newStringRegex = ImportPathResolver.newStringRegex;
+export function isAbsolutePath(path:string){
+  return checkAbsolutePath(path) && !path.includes('${configDir}')
+}
