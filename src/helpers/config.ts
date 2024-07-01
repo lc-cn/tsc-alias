@@ -73,7 +73,7 @@ export async function prepareConfig(
   const configDir: string = normalizePath(dirname(configFile));
 
   // config with project details and paths
-  const projectConfig: IProjectConfig = {
+  const projectConfig: IProjectConfig = replaceTemplateVariable({
     configFile: configFile,
     baseUrl: baseUrl,
     outDir: _outDir,
@@ -86,7 +86,7 @@ export async function prepareConfig(
     pathCache: new PathCache(!options.watch, fileExtensions?.outputCheck),
     inputGlob:
       fileExtensions?.inputGlob || '{mjs,cjs,js,jsx,d.{mts,cts,ts,tsx}}'
-  };
+  });
   output.debug('loaded project config:', projectConfig);
 
   const config: IConfig = {
@@ -191,6 +191,21 @@ export function normalizeTsConfigExtendsOption(
       : resolveTsConfigExtendsPath(e, file)
   );
   return normExts;
+}
+/**
+ * replace templateVariable
+ * @param {object} obj  need replace object
+ * @param {string} configDir
+ */
+export function replaceTemplateVariable<T extends object>(obj:T,configDir:string):T{
+  if(!obj) return obj
+  return Object.fromEntries(Object.entries(obj).map(_,value=>{
+    if(typeof value ==='object') return [_,replaceTemplateVariable(value,configDir)]
+    if(typeof value !=='string' return value
+    const hansVariable=value.includes('${configDir}')
+    if(!hansVariable) return value
+    return value.replace(new Regexp('${configDir}','g'),configDir)
+  })
 }
 
 /**
