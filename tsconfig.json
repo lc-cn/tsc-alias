@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "${configDir}/dist",
     "target": "es2015",
     "module": "commonjs",
     "baseUrl": ".",
@@ -9,7 +9,7 @@
     "declaration": true,
     "removeComments": true,
     "sourceMap": true,
-    "rootDir": "./src",
+    "rootDir": "${configDir}/src",
     "inlineSources": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
